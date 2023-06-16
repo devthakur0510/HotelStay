@@ -5,8 +5,9 @@
  * @format
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import {
+  Easing,
   StyleSheet,
   Text,
   View,
@@ -16,9 +17,43 @@ import {
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import CustomerProfile from './src/CustomerProfile';
+import {
+  createStackNavigator,
+  TransitionSpecs,
+  HeaderStyleInterpolators,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 
-const Stack = createNativeStackNavigator();
+import CustomerProfile from './src/CustomerProfile';
+import SearchArea from './src/SearchArea';
+import AddGuests from './src/AddGuests';
+import SelectDates from './src/SelectDates';
+import HotelAdmin from './src/HotelAdmin';
+import SearchResult from './src/SearchResult';
+
+// const Stack = createNativeStackNavigator();
+
+const Stack = createStackNavigator();
+
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 50,
+    mass: 3,
+    overshootClamping: false,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+
+const closeConfig = {
+  animation: 'timing',
+  config: {
+    duration: 200,
+    easing: Easing.linear,
+  },
+};
 
 const App = () => {
   return (
@@ -32,16 +67,86 @@ const App = () => {
         <Stack.Screen
           name="Customer"
           component={CustomerProfile}
-          options={{title: 'Hotels & Homestays'}}
+          options={{
+            headerBackTitleVisible: false,
+            title: 'Hotels & Homestays',
+          }}
         />
+        <Stack.Screen
+          name="SearchResult"
+          component={SearchResult}
+          options={{
+            headerBackTitleVisible: false,
+            title: 'Hotel List',
+          }}
+        />
+
         <Stack.Screen
           name="Admin"
           component={HotelAdmin}
-          options={{title: 'Hotel Admin '}}
+          // options={{title: 'Hotel Admin'}}
+
+          options={{
+            title: 'Add Hotel Details',
+            headerBackTitleVisible: false,
+            transitionSpec: {
+              open: TransitionSpecs.TransitionIOSSpec,
+              close: TransitionSpecs.TransitionIOSSpec,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="SearchArea"
+          component={SearchArea}
+          options={{
+            title: 'Search Location',
+            gestureDirection: 'vertical',
+            headerBackTitleVisible: false,
+            transitionSpec: {
+              open: config,
+              close: closeConfig,
+            },
+            cardStyleInterpolator:
+              CardStyleInterpolators.forModalPresentationIOS,
+          }}
+        />
+        <Stack.Screen
+          name="AddGuests"
+          component={AddGuests}
+          options={{
+            title: 'Add Guests',
+            gestureDirection: 'vertical',
+            headerBackTitleVisible: false,
+            transitionSpec: {
+              open: config,
+              close: closeConfig,
+            },
+            cardStyleInterpolator:
+              CardStyleInterpolators.forModalPresentationIOS,
+          }}
+        />
+        <Stack.Screen
+          name="SelectDates"
+          component={SelectDates}
+          options={{
+            title: 'Select Dates',
+            gestureDirection: 'vertical',
+            headerBackTitleVisible: false,
+            transitionSpec: {
+              open: config,
+              close: closeConfig,
+            },
+            cardStyleInterpolator:
+              CardStyleInterpolators.forModalPresentationIOS,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
+};
+
+const TestMethod = () => {
+  console.log('CALLED FORM PREVIOUS SCREEN');
 };
 
 const HomeScreen = ({navigation}) => {
@@ -55,7 +160,7 @@ const HomeScreen = ({navigation}) => {
       <TouchableOpacity style={styles.button}>
         <Button
           onPress={() => {
-            navigation.navigate('Customer', {name: 'Jane'});
+            navigation.navigate('Customer', {name: 'Test Argument'});
           }}
           title="Looking Hotel"
           color="#F5FCFF"
@@ -65,7 +170,10 @@ const HomeScreen = ({navigation}) => {
       <TouchableOpacity style={styles.button}>
         <Button
           onPress={() => {
-            navigation.navigate('Admin', {name: 'Jane'});
+            navigation.navigate('Admin', {
+              method: TestMethod(),
+              name: 'developer',
+            });
           }}
           title="Hotel Admin"
           color="#F5FCFF"
@@ -73,29 +181,6 @@ const HomeScreen = ({navigation}) => {
       </TouchableOpacity>
     </View>
   );
-};
-/*
-const CustomerProfile = ({navigation, route}) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.shadowView}>
-        <Text style={styles.labelText}>City, Area or Property Name </Text>
-      </View>
-      <TouchableOpacity style={styles.Searchbutton}>
-        <Button
-          onPress={() => {
-            navigation.navigate('Customer', {name: 'Jane'});
-          }}
-          title="Search"
-          color="#4EB151"
-        />
-      </TouchableOpacity>
-    </View>
-  );
-}; */
-
-const HotelAdmin = ({navigation, route}) => {
-  return <Text>This is {route.params.name}'s profile</Text>;
 };
 
 const styles = StyleSheet.create({
