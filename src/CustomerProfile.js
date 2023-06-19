@@ -4,8 +4,8 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {increament, decreament, updatetitleName} from './src/Actions/index';
-import {TextInput} from 'react-native-paper';
+ // import {increament, decreament, updatetitleName} from './src/Actions/index';
+// import {TextInput} from 'react-native-paper';
 
 import {
   View,
@@ -34,26 +34,21 @@ const DATA = [
 const CustomerProfile = ({route, navigation}) => {
   const {startDate, endDate, searchText} = route.params;
 
-  console.log(searchText);
 
   const myGuest = useSelector(state => state.nameReducer);
-
   const [hsroom, sethsroom] = useState(1);
   const [hsadult, sethsadult] = useState(2);
   const [hschild, sethschild] = useState(0);
-  const [searchString, setsearchString] = useState(searchText);
+  const [Address, setAddress] = useState('');
 
+  const [searchString, setsearchString] = useState(searchText);
   const [hsstartDate, sethsstartDate] = useState(0);
   const [hsendDate, sethsendDate] = useState(0);
 
-  //const [hsstartDate, setstartDate] = useState(startDate);
-  // const [hsendDate, sethsendDate] = useState(endDate);
-  const [Address, setAddress] = useState('');
 
   const dispatch = useDispatch();
 
   const checkSearchInput = () => {
-    console.log('checkTextInput called');
     //Check for the Name TextInput
     if (!hsroom.trim()) {
       alert('Please select room');
@@ -70,6 +65,7 @@ const CustomerProfile = ({route, navigation}) => {
     }
     navigation.navigate('SearchResult', {name: 'Test Argument'});
   };
+
 
   useEffect(() => {
     sethsadult(myGuest.adult ? myGuest.adult : 2);
@@ -134,7 +130,6 @@ const CustomerProfile = ({route, navigation}) => {
     );
   };
 
-  console.log('after back from search bitton title ' + searchString);
   return (
     <View style={styles.container}>
       <View style={styles.shadowView}>
