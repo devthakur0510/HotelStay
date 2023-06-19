@@ -19,8 +19,3 @@ export default function Btn({bgColor, btnLabel, textColor, Press}) {
     </TouchableOpacity>
   );
 }
-// custom button implementation
-// Test comment to handle the conflict
-// Add comment in main branch
-// Test comment to handle the conflict
-// Add comment in development branch
