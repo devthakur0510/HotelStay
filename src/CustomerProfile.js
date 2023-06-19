@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 
-import {useSelector, useDispatch} from 'react-redux';
-import {increament, decreament, updatetitleName} from './src/Actions/index';
-import {TextInput} from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
+import { increament, decreament, updatetitleName } from './src/Actions/index';
+import { TextInput } from 'react-native-paper';
 
 import {
   View,
@@ -31,25 +31,21 @@ const DATA = [
   },
 ];
 
-const CustomerProfile = ({route, navigation}) => {
-  const {startDate, endDate, searchText} = route.params;
-
-  console.log(searchText);
-
-  const myGuest = useSelector(state => state.nameReducer);
-
-  const [hsroom, sethsroom] = useState(1);
-  const [hsadult, sethsadult] = useState(2);
-  const [hschild, sethschild] = useState(0);
+const CustomerProfile = ({ route, navigation }) => {
+  const { startDate, endDate, searchText } = route.params;
   const [searchString, setsearchString] = useState(searchText);
-
   const [hsstartDate, sethsstartDate] = useState(0);
   const [hsendDate, sethsendDate] = useState(0);
 
   //const [hsstartDate, setstartDate] = useState(startDate);
   // const [hsendDate, sethsendDate] = useState(endDate);
-  const [Address, setAddress] = useState('');
 
+  const myGuest = useSelector(state => state.nameReducer);
+  const [hsroom, sethsroom] = useState(1);
+  const [hsadult, sethsadult] = useState(2);
+  const [hschild, sethschild] = useState(0);
+
+  const [Address, setAddress] = useState('');
   const dispatch = useDispatch();
 
   const checkSearchInput = () => {
@@ -68,8 +64,9 @@ const CustomerProfile = ({route, navigation}) => {
       alert('Please enter Address');
       return;
     }
-    navigation.navigate('SearchResult', {name: 'Test Argument'});
+    navigation.navigate('SearchResult', { name: 'Test Argument' });
   };
+
 
   useEffect(() => {
     sethsadult(myGuest.adult ? myGuest.adult : 2);
@@ -77,13 +74,15 @@ const CustomerProfile = ({route, navigation}) => {
     sethschild(myGuest.child ? myGuest.child : 0);
   }, [myGuest.adult, myGuest.room, myGuest.child]);
 
+
+
   // eslint-disable-next-line react/no-unstable-nested-components
-  const Item = ({item}) => (
+  const Item = ({ item }) => (
     <View>
       <TouchableOpacity
-        style={{flex: 1, backgroundColor: 'transparent'}}
+        style={{ flex: 1, backgroundColor: 'transparent' }}
         onPress={() => {
-          navigation.navigate('SearchResult', {name: 'Jane'});
+          navigation.navigate('SearchResult', { name: 'Jane' });
         }}>
         <View
           style={{
@@ -97,14 +96,14 @@ const CustomerProfile = ({route, navigation}) => {
             <Text style={styles.title}>{item.address}</Text>
           </View>
           <IconIonicons
-            style={{paddingTop: 35}}
+            style={{ paddingTop: 35 }}
             name="chevron-forward-outline"
             color="orange"
             size={33}
           />
         </View>
       </TouchableOpacity>
-      <View style={{backgroundColor: 'orange', height: 1}} />
+      <View style={{ backgroundColor: 'orange', height: 1 }} />
     </View>
   );
 
@@ -124,7 +123,7 @@ const CustomerProfile = ({route, navigation}) => {
       <SafeAreaView style={styles.containerFLatList}>
         <FlatList
           data={DATA}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <Item item={item} navigation={nav} demo="TestDemo" />
           )}
           ItemSeparatorComponent={ItemSeprator}
@@ -141,7 +140,7 @@ const CustomerProfile = ({route, navigation}) => {
         <Text style={styles.labelText}>City, Area or Property Name </Text>
         <Button
           onPress={() => {
-            navigation.navigate('SearchArea', {name: 'Jane'});
+            navigation.navigate('SearchArea', { name: 'Jane' });
           }}
           title={
             route.params.searchText
@@ -176,11 +175,11 @@ const CustomerProfile = ({route, navigation}) => {
             flexDirection: 'row',
             justifyContent: 'space-evenly',
           }}>
-          <View style={{width: '45%', alignItems: 'center'}}>
+          <View style={{ width: '45%', alignItems: 'center' }}>
             <TouchableOpacity
               style={styles.DateButton}
               onPress={() => {
-                navigation.navigate('SelectDates', {name: 'test'});
+                navigation.navigate('SelectDates', { name: 'test' });
               }}>
               <Text
                 style={{
@@ -202,11 +201,11 @@ const CustomerProfile = ({route, navigation}) => {
             }}
           />
 
-          <View style={{width: '40%', alignItems: 'center'}}>
+          <View style={{ width: '40%', alignItems: 'center' }}>
             <TouchableOpacity
               style={styles.DateButton}
               onPress={() => {
-                navigation.navigate('AddGuests', {name: 'test'});
+                navigation.navigate('AddGuests', { name: 'test' });
               }}>
               <Text
                 style={{
@@ -244,7 +243,7 @@ const CustomerProfile = ({route, navigation}) => {
           borderColor: 'orange',
           borderWidth: 1,
         }}>
-        <Text style={{fontSize: 18, paddingTop: 10}}> Recent Search </Text>
+        <Text style={{ fontSize: 18, paddingTop: 10 }}> Recent Search </Text>
         {<SearchList nav={navigation}> </SearchList>}
       </View>
     </View>
