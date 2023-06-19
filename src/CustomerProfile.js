@@ -3,9 +3,15 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 
+<<<<<<< HEAD
 import { useSelector, useDispatch } from 'react-redux';
 import { increament, decreament, updatetitleName } from './src/Actions/index';
 import { TextInput } from 'react-native-paper';
+=======
+import {useSelector, useDispatch} from 'react-redux';
+ // import {increament, decreament, updatetitleName} from './src/Actions/index';
+// import {TextInput} from 'react-native-paper';
+>>>>>>> main
 
 import {
   View,
@@ -31,14 +37,30 @@ const DATA = [
   },
 ];
 
+<<<<<<< HEAD
 const CustomerProfile = ({ route, navigation }) => {
   const { startDate, endDate, searchText } = route.params;
+=======
+const CustomerProfile = ({route, navigation}) => {
+  const {startDate, endDate, searchText} = route.params;
+
+
+  const myGuest = useSelector(state => state.nameReducer);
+  const [hsroom, sethsroom] = useState(1);
+  const [hsadult, sethsadult] = useState(2);
+  const [hschild, sethschild] = useState(0);
+  const [Address, setAddress] = useState('');
+
+>>>>>>> main
   const [searchString, setsearchString] = useState(searchText);
   const [hsstartDate, sethsstartDate] = useState(0);
   const [hsendDate, sethsendDate] = useState(0);
 
+<<<<<<< HEAD
   //const [hsstartDate, setstartDate] = useState(startDate);
   // const [hsendDate, sethsendDate] = useState(endDate);
+=======
+>>>>>>> main
 
   const myGuest = useSelector(state => state.nameReducer);
   const [hsroom, sethsroom] = useState(1);
@@ -49,7 +71,6 @@ const CustomerProfile = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   const checkSearchInput = () => {
-    console.log('checkTextInput called');
     //Check for the Name TextInput
     if (!hsroom.trim()) {
       alert('Please select room');
@@ -133,7 +154,6 @@ const CustomerProfile = ({ route, navigation }) => {
     );
   };
 
-  console.log('after back from search bitton title ' + searchString);
   return (
     <View style={styles.container}>
       <View style={styles.shadowView}>
