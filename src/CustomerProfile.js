@@ -17,17 +17,36 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
+import {Image} from 'react-native-elements/dist/image/Image';
 
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Vijay Nagar indore',
+    title: 'Sayaji Hotel Indore',
     address: '56 near staysai squre Indore',
+    rating: '3.8',
+    ratingText: 'Good',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     title: 'Second Item',
     address: '56 near staysai squre Indore',
+    rating: '4.5',
+    ratingText: 'Good',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97sadas',
+    title: 'Second Item',
+    address: '56 near staysai squre Indore',
+    rating: '3',
+    ratingText: 'Good',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbddasdf63',
+    title: 'Second Item',
+    address: '56 near staysai squre Indore',
+    rating: '3',
+    ratingText: 'Good',
   },
 ];
 
@@ -79,32 +98,33 @@ const CustomerProfile = ({route, navigation}) => {
 
   // eslint-disable-next-line react/no-unstable-nested-components
   const Item = ({item}) => (
-    <View>
+    <View style={{flex: 1, backgroundColor: '#f8f9fa', borderRadius: 10}}>
       <TouchableOpacity
-        style={{flex: 1, backgroundColor: 'transparent'}}
         onPress={() => {
           navigation.navigate('SearchResult', {name: 'Jane'});
         }}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: 'white',
-          }}>
-          <View style={styles.item}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.title}>{item.address}</Text>
+        <View style={styles.item}>
+          <View>
+            <Image
+              style={{
+                width: '100%',
+                height: 150,
+                resizeMode: 'cover',
+              }}
+              source={require('./assets/hotel2.webp')}
+            />
           </View>
-          <IconIonicons
-            style={{paddingTop: 35}}
-            name="chevron-forward-outline"
-            color="orange"
-            size={33}
-          />
+          <View style={styles.ratingView}>
+            <View style={styles.ratingNumber}>
+              <Text style={styles.ratingText}>{item.rating}</Text>
+            </View>
+            <Text style={styles.ratingText}>{item.ratingText}</Text>
+          </View>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item.address}</Text>
+          <Text style={styles.title}>{item.address}</Text>
         </View>
       </TouchableOpacity>
-      <View style={{backgroundColor: 'orange', height: 1}} />
     </View>
   );
 
@@ -112,9 +132,9 @@ const CustomerProfile = ({route, navigation}) => {
   const ItemSeprator = () => (
     <View
       style={{
-        height: 1,
+        height: 5,
         width: '100%',
-        backgroundColor: 'orange',
+        backgroundColor: 'lightgray',
       }}
     />
   );
@@ -124,9 +144,7 @@ const CustomerProfile = ({route, navigation}) => {
       <SafeAreaView style={styles.containerFLatList}>
         <FlatList
           data={DATA}
-          renderItem={({item}) => (
-            <Item item={item} navigation={nav} demo="TestDemo" />
-          )}
+          renderItem={({item}) => <Item item={item} navigation={nav} demo="" />}
           ItemSeparatorComponent={ItemSeprator}
           keyExtractor={item => item.id}
         />
@@ -238,13 +256,9 @@ const CustomerProfile = ({route, navigation}) => {
         style={{
           top: 40,
           height: '65%',
-          width: '90%',
+          width: '100%',
           backgroundColor: '#FFFFFF',
-          borderRadius: 10,
-          borderColor: 'orange',
-          borderWidth: 1,
         }}>
-        <Text style={{fontSize: 18, paddingTop: 10}}> Recent Search </Text>
         {<SearchList nav={navigation}> </SearchList>}
       </View>
     </View>
@@ -267,6 +281,24 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 10,
     top: 20,
+  },
+  ratingView: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  ratingNumber: {
+    backgroundColor: 'orange',
+    width: 40,
+    height: 30,
+    borderRadius: 5,
+    margin: 3,
+  },
+  ratingText: {
+    fontSize: 20,
+    paddingTop: 3,
+    fontWeight: 'bold',
+    alignSelf: 'center',
   },
   DateButton: {
     width: '100%',
@@ -301,6 +333,7 @@ const styles = StyleSheet.create({
   containerFLatList: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: 'transparent',
   },
   item: {
     backgroundColor: 'transparent',
