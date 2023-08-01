@@ -4,7 +4,7 @@ include ':app'
 includeBuild('../node_modules/react-native-gradle-plugin')
 rootProject.name = 'MyApp'
 
-include ':HotelStay'
+include ':HotelStay', 'app'
 
 // Add these two lines
 include ':react-native-vector-icons'

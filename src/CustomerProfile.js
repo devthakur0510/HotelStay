@@ -1,11 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
-
 import {useSelector, useDispatch} from 'react-redux';
-import {increament, decreament, updatetitleName} from './src/Actions/index';
-import {TextInput} from 'react-native-paper';
 
 import {
   View,
@@ -17,6 +13,7 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
+
 import {Image} from 'react-native-elements/dist/image/Image';
 
 const DATA = [
@@ -52,7 +49,6 @@ const DATA = [
 
 const CustomerProfile = ({route, navigation}) => {
   const {startDate, endDate, searchText} = route.params;
-
   console.log(searchText);
 
   const myGuest = useSelector(state => state.nameReducer);
@@ -65,8 +61,6 @@ const CustomerProfile = ({route, navigation}) => {
   const [hsstartDate, sethsstartDate] = useState(0);
   const [hsendDate, sethsendDate] = useState(0);
 
-  //const [hsstartDate, setstartDate] = useState(startDate);
-  // const [hsendDate, sethsendDate] = useState(endDate);
   const [Address, setAddress] = useState('');
 
   const dispatch = useDispatch();
@@ -97,6 +91,7 @@ const CustomerProfile = ({route, navigation}) => {
   }, [myGuest.adult, myGuest.room, myGuest.child]);
 
   // eslint-disable-next-line react/no-unstable-nested-components
+
   const Item = ({item}) => (
     <View style={{flex: 1, backgroundColor: '#f8f9fa', borderRadius: 10}}>
       <TouchableOpacity
@@ -145,6 +140,9 @@ const CustomerProfile = ({route, navigation}) => {
         <FlatList
           data={DATA}
           renderItem={({item}) => <Item item={item} navigation={nav} demo="" />}
+          renderItem={({item}) => (
+            <Item item={item} navigation={nav} demo="TestDemo" />
+          )}
           ItemSeparatorComponent={ItemSeprator}
           keyExtractor={item => item.id}
         />
@@ -152,7 +150,6 @@ const CustomerProfile = ({route, navigation}) => {
     );
   };
 
-  console.log('after back from search bitton title ' + searchString);
   return (
     <View style={styles.container}>
       <View style={styles.shadowView}>
