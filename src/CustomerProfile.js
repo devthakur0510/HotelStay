@@ -1,17 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
-
-<<<<<<< HEAD
-import { useSelector, useDispatch } from 'react-redux';
-import { increament, decreament, updatetitleName } from './src/Actions/index';
-import { TextInput } from 'react-native-paper';
-=======
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
- // import {increament, decreament, updatetitleName} from './src/Actions/index';
-// import {TextInput} from 'react-native-paper';
->>>>>>> main
 
 import {
   View,
@@ -24,53 +14,59 @@ import {
   FlatList,
 } from 'react-native';
 
+import {Image} from 'react-native-elements/dist/image/Image';
+
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Vijay Nagar indore',
+    title: 'Sayaji Hotel Indore',
     address: '56 near staysai squre Indore',
+    rating: '3.8',
+    ratingText: 'Good',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     title: 'Second Item',
     address: '56 near staysai squre Indore',
+    rating: '4.5',
+    ratingText: 'Good',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97sadas',
+    title: 'Second Item',
+    address: '56 near staysai squre Indore',
+    rating: '3',
+    ratingText: 'Good',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbddasdf63',
+    title: 'Second Item',
+    address: '56 near staysai squre Indore',
+    rating: '3',
+    ratingText: 'Good',
   },
 ];
 
-<<<<<<< HEAD
-const CustomerProfile = ({ route, navigation }) => {
-  const { startDate, endDate, searchText } = route.params;
-=======
 const CustomerProfile = ({route, navigation}) => {
   const {startDate, endDate, searchText} = route.params;
-
+  console.log(searchText);
 
   const myGuest = useSelector(state => state.nameReducer);
+
   const [hsroom, sethsroom] = useState(1);
   const [hsadult, sethsadult] = useState(2);
   const [hschild, sethschild] = useState(0);
-  const [Address, setAddress] = useState('');
-
->>>>>>> main
   const [searchString, setsearchString] = useState(searchText);
+
   const [hsstartDate, sethsstartDate] = useState(0);
   const [hsendDate, sethsendDate] = useState(0);
 
-<<<<<<< HEAD
-  //const [hsstartDate, setstartDate] = useState(startDate);
-  // const [hsendDate, sethsendDate] = useState(endDate);
-=======
->>>>>>> main
-
-  const myGuest = useSelector(state => state.nameReducer);
-  const [hsroom, sethsroom] = useState(1);
-  const [hsadult, sethsadult] = useState(2);
-  const [hschild, sethschild] = useState(0);
-
   const [Address, setAddress] = useState('');
+
   const dispatch = useDispatch();
 
   const checkSearchInput = () => {
+    console.log('checkTextInput called');
     //Check for the Name TextInput
     if (!hsroom.trim()) {
       alert('Please select room');
@@ -85,9 +81,8 @@ const CustomerProfile = ({route, navigation}) => {
       alert('Please enter Address');
       return;
     }
-    navigation.navigate('SearchResult', { name: 'Test Argument' });
+    navigation.navigate('SearchResult', {name: 'Test Argument'});
   };
-
 
   useEffect(() => {
     sethsadult(myGuest.adult ? myGuest.adult : 2);
@@ -95,36 +90,36 @@ const CustomerProfile = ({route, navigation}) => {
     sethschild(myGuest.child ? myGuest.child : 0);
   }, [myGuest.adult, myGuest.room, myGuest.child]);
 
-
-
   // eslint-disable-next-line react/no-unstable-nested-components
-  const Item = ({ item }) => (
-    <View>
+
+  const Item = ({item}) => (
+    <View style={{flex: 1, backgroundColor: '#f8f9fa', borderRadius: 10}}>
       <TouchableOpacity
-        style={{ flex: 1, backgroundColor: 'transparent' }}
         onPress={() => {
-          navigation.navigate('SearchResult', { name: 'Jane' });
+          navigation.navigate('SearchResult', {name: 'Jane'});
         }}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: 'white',
-          }}>
-          <View style={styles.item}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.title}>{item.address}</Text>
+        <View style={styles.item}>
+          <View>
+            <Image
+              style={{
+                width: '100%',
+                height: 150,
+                resizeMode: 'cover',
+              }}
+              source={require('./assets/hotel2.webp')}
+            />
           </View>
-          <IconIonicons
-            style={{ paddingTop: 35 }}
-            name="chevron-forward-outline"
-            color="orange"
-            size={33}
-          />
+          <View style={styles.ratingView}>
+            <View style={styles.ratingNumber}>
+              <Text style={styles.ratingText}>{item.rating}</Text>
+            </View>
+            <Text style={styles.ratingText}>{item.ratingText}</Text>
+          </View>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item.address}</Text>
+          <Text style={styles.title}>{item.address}</Text>
         </View>
       </TouchableOpacity>
-      <View style={{ backgroundColor: 'orange', height: 1 }} />
     </View>
   );
 
@@ -132,9 +127,9 @@ const CustomerProfile = ({route, navigation}) => {
   const ItemSeprator = () => (
     <View
       style={{
-        height: 1,
+        height: 5,
         width: '100%',
-        backgroundColor: 'orange',
+        backgroundColor: 'lightgray',
       }}
     />
   );
@@ -144,7 +139,8 @@ const CustomerProfile = ({route, navigation}) => {
       <SafeAreaView style={styles.containerFLatList}>
         <FlatList
           data={DATA}
-          renderItem={({ item }) => (
+          renderItem={({item}) => <Item item={item} navigation={nav} demo="" />}
+          renderItem={({item}) => (
             <Item item={item} navigation={nav} demo="TestDemo" />
           )}
           ItemSeparatorComponent={ItemSeprator}
@@ -160,7 +156,7 @@ const CustomerProfile = ({route, navigation}) => {
         <Text style={styles.labelText}>City, Area or Property Name </Text>
         <Button
           onPress={() => {
-            navigation.navigate('SearchArea', { name: 'Jane' });
+            navigation.navigate('SearchArea', {name: 'Jane'});
           }}
           title={
             route.params.searchText
@@ -195,11 +191,11 @@ const CustomerProfile = ({route, navigation}) => {
             flexDirection: 'row',
             justifyContent: 'space-evenly',
           }}>
-          <View style={{ width: '45%', alignItems: 'center' }}>
+          <View style={{width: '45%', alignItems: 'center'}}>
             <TouchableOpacity
               style={styles.DateButton}
               onPress={() => {
-                navigation.navigate('SelectDates', { name: 'test' });
+                navigation.navigate('SelectDates', {name: 'test'});
               }}>
               <Text
                 style={{
@@ -221,11 +217,11 @@ const CustomerProfile = ({route, navigation}) => {
             }}
           />
 
-          <View style={{ width: '40%', alignItems: 'center' }}>
+          <View style={{width: '40%', alignItems: 'center'}}>
             <TouchableOpacity
               style={styles.DateButton}
               onPress={() => {
-                navigation.navigate('AddGuests', { name: 'test' });
+                navigation.navigate('AddGuests', {name: 'test'});
               }}>
               <Text
                 style={{
@@ -257,13 +253,9 @@ const CustomerProfile = ({route, navigation}) => {
         style={{
           top: 40,
           height: '65%',
-          width: '90%',
+          width: '100%',
           backgroundColor: '#FFFFFF',
-          borderRadius: 10,
-          borderColor: 'orange',
-          borderWidth: 1,
         }}>
-        <Text style={{ fontSize: 18, paddingTop: 10 }}> Recent Search </Text>
         {<SearchList nav={navigation}> </SearchList>}
       </View>
     </View>
@@ -286,6 +278,24 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 10,
     top: 20,
+  },
+  ratingView: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  ratingNumber: {
+    backgroundColor: 'orange',
+    width: 40,
+    height: 30,
+    borderRadius: 5,
+    margin: 3,
+  },
+  ratingText: {
+    fontSize: 20,
+    paddingTop: 3,
+    fontWeight: 'bold',
+    alignSelf: 'center',
   },
   DateButton: {
     width: '100%',
@@ -320,6 +330,7 @@ const styles = StyleSheet.create({
   containerFLatList: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: 'transparent',
   },
   item: {
     backgroundColor: 'transparent',
